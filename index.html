@@ -39,24 +39,59 @@ function showSection(sectionId) {
             box-sizing: border-box;
         }
     </style>
+  <script>
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.content section').forEach(function (sec) {
+        sec.style.display = 'none';
+    });
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+}
+</script>
 </head>
 <body>
-    <div class="header">
-        <h1>Dashboard Header</h1>
-    </div>
-    <div class="container">
-        <div class="sidebar">
-            <h2>KPI Analysis</h2>
-            <ul>
-                <li><a href="units_prod.html">Data (Units/Prod)</a></li>
-                <li><a href="weekly_by_dept.html">Data (Weekly by Dept)</a></li>
-                <li><a href="kpi_forecasting.html">KPI Forecasting</a></li>
-            </ul>
-        </div>
-        <div class="content">
-            <h2>Main Content</h2>
-            <p>Your dashboard content goes here.</p>
-        </div>
-    </div>
+<ul>
+  <li><a href="#!" onclick="showSection('units-prod')">Data (Units/Prod)</a></li>
+  <li><a href="#!" onclick="showSection('weekly-by-dept')">Data (Weekly by Dept)</a></li>
+  <li><a href="#!" onclick="showSection('kpi-forecasting')">KPI Forecasting</a></li>
+</ul>
+
+<div class="content">
+    <!-- Units/Prod section -->
+    <section id="units-prod">
+        <h2>Units/Prod</h2>
+        <!-- Replace the placeholder paragraph with your Google Sheets iframe -->
+        <iframe
+           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxo6dLzN23KhiDNUEKL76_nzALDs9utPshKMLszuxGqED1QjUMAt6A0yLse0inI5LsSVfCBO_cegvt/pubhtml?gid=219996180&amp;single=true&amp;widget=true&amp;headers=false"
+           width="100%"
+           height="450"
+           frameborder="0"
+        ></iframe>
+    </section>
+
+    <!-- Weekly by Dept section -->
+    <section id="weekly-by-dept" style="display:none;">
+        <h2>Weekly by Dept</h2>
+        <iframe
+           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxo6dLzN23KhiDNUEKL76_nzALDs9utPshKMLszuxGqED1QjUMAt6A0yLse0inI5LsSVfCBO_cegvt/pubhtml?gid=1278216070&amp;single=true&amp;widget=true&amp;headers=false"
+           width="100%"
+           height="450"
+           frameborder="0"
+        ></iframe>
+    </section>
+
+    <!-- KPI Forecasting section -->
+    <section id="kpi-forecasting" style="display:none;">
+        <h2>KPI Forecasting</h2>
+        <iframe
+           src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSxo6dLzN23KhiDNUEKL76_nzALDs9utPshKMLszuxGqED1QjUMAt6A0yLse0inI5LsSVfCBO_cegvt/pubhtml?gid=1150923660&amp;single=true&amp;widget=true&amp;headers=false"
+           width="100%"
+           height="450"
+           frameborder="0"
+        ></iframe>
+    </section>
+</div>
+
 </body>
 </html>
