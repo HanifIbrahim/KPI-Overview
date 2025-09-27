@@ -69,7 +69,45 @@ function showSection(sectionId) {
            frameborder="0"
         ></iframe>
     </section>
+      <div id="units-insights">
+  <h3>Units/Prod Insights</h3>
+  <ul id="units-summary"></ul>
+  <canvas id="unitsChart"></canvas>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const sheetId = 'YOUR_SHEET_ID';
+const apiKey  = 'YOUR_API_KEY';
+const range   = 'UnitsData!A2:B';  // adjust for your sheet: labels in col A, values in col B
+const url     = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
+
+fetch(url).then(resp => resp.json()).then(data => {
+  const rows = data.values || [];
+  const labels = [];
+  const units  = [];
+  rows.forEach(row => {
+    labels.push(row[0]);
+    units.push(Number(row[1]));
+  });
+
+  // Compute metrics:contentReference[oaicite:4]{index=4}.
+  const total   = units.reduce((acc, v) => acc + v, 0);
+  const average = units.length ? total / units.length : 0;
+
+  // Show metrics in the summary list.
+  const summary = document.getElementById('units-summary');
+  summary.innerHTML = `<li><strong>Total units:</strong> ${total}</li>
+                       <li><strong>Average per entry:</strong> ${average.toFixed(2)}</li>`;
+
+  // Draw bar chart:contentReference[oaicite:5]{index=5}.
+  new Chart(document.getElementById('unitsChart').getContext('2d'), {
+    type: 'bar',
+    data: { labels: labels, datasets: [{ label: 'Units', data: units, backgroundColor: 'rgba(54,162,235,0.6)' }] },
+    options: { scales: { y: { beginAtZero: true } } }
+  });
+}).catch(err => console.error(err));
+</script>
     <!-- Weekly by Dept section -->
     <section id="weekly-by-dept" style="display:none;">
         <h2>Weekly by Dept</h2>
